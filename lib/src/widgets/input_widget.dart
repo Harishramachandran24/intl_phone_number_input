@@ -268,13 +268,19 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
       String phoneNumber, String? isoCode) async {
     if (phoneNumber.isNotEmpty && isoCode != null) {
       try {
-        bool? isValidPhoneNumber = await PhoneNumberUtil.isValidNumber(
+        return await PhoneNumberUtil.normalizePhoneNumber(
             phoneNumber: phoneNumber, isoCode: isoCode);
 
-        if (isValidPhoneNumber!) {
-          return await PhoneNumberUtil.normalizePhoneNumber(
-              phoneNumber: phoneNumber, isoCode: isoCode);
-        }
+        //Below code is for allowing only valid phone numbers.
+        //remove lines 271, 272 and enable below code for validation
+
+        // bool? isValidPhoneNumber = await PhoneNumberUtil.isValidNumber(
+        //     phoneNumber: phoneNumber, isoCode: isoCode);
+
+        // if (isValidPhoneNumber!) {
+        //   return await PhoneNumberUtil.normalizePhoneNumber(
+        //       phoneNumber: phoneNumber, isoCode: isoCode);
+        // }
       } on Exception {
         return null;
       }
@@ -399,17 +405,26 @@ class _InputWidgetView
             Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SelectorButton(
-                  country: state.country,
-                  countries: state.countries,
-                  onCountryChanged: state.onCountryChanged,
-                  selectorConfig: widget.selectorConfig,
-                  selectorTextStyle: widget.selectorTextStyle,
-                  searchBoxDecoration: widget.searchBoxDecoration,
-                  locale: state.locale,
-                  isEnabled: widget.isEnabled,
-                  autoFocusSearchField: widget.autoFocusSearch,
-                  isScrollControlled: widget.countrySelectorScrollControlled,
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      border: Border.all(color: Colors.grey)),
+                  child: Padding(
+                    padding: EdgeInsets.all(5),
+                    child: SelectorButton(
+                      country: state.country,
+                      countries: state.countries,
+                      onCountryChanged: state.onCountryChanged,
+                      selectorConfig: widget.selectorConfig,
+                      selectorTextStyle: widget.selectorTextStyle,
+                      searchBoxDecoration: widget.searchBoxDecoration,
+                      locale: state.locale,
+                      isEnabled: widget.isEnabled,
+                      autoFocusSearchField: widget.autoFocusSearch,
+                      isScrollControlled:
+                          widget.countrySelectorScrollControlled,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: state.selectorButtonBottomPadding,
