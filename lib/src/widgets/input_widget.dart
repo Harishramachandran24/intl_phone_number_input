@@ -457,6 +457,7 @@ class _InputWidgetView
               scrollPadding: widget.scrollPadding,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(widget.maxLength),
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                 widget.formatInput
                     ? AsYouTypeFormatter(
                         isoCode: countryCode,
