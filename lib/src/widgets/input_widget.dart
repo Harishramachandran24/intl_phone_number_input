@@ -268,19 +268,19 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
       String phoneNumber, String? isoCode) async {
     if (phoneNumber.isNotEmpty && isoCode != null) {
       try {
-        // return await PhoneNumberUtil.normalizePhoneNumber(
-        //     phoneNumber: phoneNumber, isoCode: isoCode);
+        return await PhoneNumberUtil.normalizePhoneNumber(
+            phoneNumber: phoneNumber, isoCode: isoCode);
 
         //Below code is for allowing only valid phone numbers.
         //remove lines 271, 272 and enable below code for validation
 
-        bool? isValidPhoneNumber = await PhoneNumberUtil.isValidNumber(
-            phoneNumber: phoneNumber, isoCode: isoCode);
+        // bool? isValidPhoneNumber = await PhoneNumberUtil.isValidNumber(
+        //     phoneNumber: phoneNumber, isoCode: isoCode);
 
-        if (isValidPhoneNumber!) {
-          return await PhoneNumberUtil.normalizePhoneNumber(
-              phoneNumber: phoneNumber, isoCode: isoCode);
-        }
+        // if (isValidPhoneNumber!) {
+        //   return await PhoneNumberUtil.normalizePhoneNumber(
+        //       phoneNumber: phoneNumber, isoCode: isoCode);
+        // }
       } on Exception {
         return null;
       }
